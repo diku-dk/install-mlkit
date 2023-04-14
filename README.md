@@ -8,7 +8,7 @@ the `$PATH` of a standard setup.
 
 `version`
 
-The full version to install as a string (e.g. `4.7.3`), or the
+The full version to install as a string (e.g. `'4.7.3'`), or the
 string `'latest'`.
 
 ## Example usages
