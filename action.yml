@@ -20,7 +20,7 @@ runs:
       shell: bash
       working-directory: 'mlkit-install-dir/'
       run: |
-        tar xvf mlkit-bin-dist-linux
+        tar xvf mlkit-bin-dist-linux.tgz
         make -C mlkit-bin-dist-linux install PREFIX=$HOME/.local
     - id: cleanup
       shell: bash
