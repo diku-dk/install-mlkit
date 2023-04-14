@@ -1,0 +1,19 @@
+on: [push]
+
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    name: Test installation.
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: install-version
+        uses: diku-dk/install-mlkit@HEAD
+        with:
+          version: '4.7.3'
+      - id: install-no-version
+        uses: diku-dk/install-mlkit@HEAD
+      - id: install-latest
+        uses: diku-dk/install-mlkit@HEAD
+        with:
+          version: 'latest'

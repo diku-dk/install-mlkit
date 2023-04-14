@@ -1,0 +1,30 @@
+name: 'Install MLKit'
+description: 'Installs the MLKit compiler'
+inputs:
+  version:
+    description: 'Version to install (or "latest")'
+    required: false
+    default: 'latest'
+runs:
+  using: "composite"
+  steps:
+    - id: fetch
+      uses: dsaltares/fetch-gh-release-asset@1.1.0
+      with:
+        repo: 'melsman/mlkit'
+        version: ${{ ((inputs.version == 'latest') && 'latest') || format('tags/v{0}', inputs.version) }}
+        regex: true
+        file: "mlkit-bin-dist-linux.tgz"
+        target: 'mlkit-install-dir/'
+    - id: install
+      shell: bash
+      working-directory: 'mlkit-install-dir/'
+      run: |
+        tar xvf mlkit-bin-dist-linux
+        make -C mlkit-bin-dist-linux install PREFIX=$HOME/.local
+    - id: cleanup
+      shell: bash
+      run: rm -rf mlkit-install-dir
+    - id: report
+      shell: bash
+      run: mlkit --version
