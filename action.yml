@@ -22,6 +22,7 @@ runs:
       run: |
         tar xvf mlkit-bin-dist-linux.tgz
         make -C mlkit-bin-dist-linux install PREFIX=$HOME/.local
+        echo "SML_LIB=$HOME/.local/lib/mlkit" >> "$GITHUB_ENV"
     - id: cleanup
       shell: bash
       run: rm -rf mlkit-install-dir
