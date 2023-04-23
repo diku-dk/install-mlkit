@@ -17,3 +17,5 @@ jobs:
         uses: diku-dk/install-mlkit@HEAD
         with:
           version: 'latest'
+
+      - run: mlkit test.mlb
