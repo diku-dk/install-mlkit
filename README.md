@@ -14,17 +14,17 @@ string `'latest'`.
 ## Example usages
 
 ```
-      - uses: diku-dk/install-mlkit@v1.0.0
+      - uses: diku-dk/install-mlkit@v1
         with:
           version: '4.7.3'
 ```
 
 ```
-      - uses: diku-dk/install-mlkit@v1.0.0
+      - uses: diku-dk/install-mlkit@v1
 ```
 
 ```
-      - uses: diku-dk/install-mlkit@v1.0.0
+      - uses: diku-dk/install-mlkit@v1
         with:
           version: 'latest'
 ```
