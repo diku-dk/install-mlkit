@@ -4,6 +4,8 @@ jobs:
   test_job:
     runs-on: ${{ matrix.os }}
     name: Test installation on ${{ matrix.os }}
+    permissions:
+      contents: read
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
