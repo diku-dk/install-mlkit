@@ -32,7 +32,7 @@ runs:
       working-directory: 'mlkit-install-dir/'
       run: |
         tar xvf mlkit-bin-dist-${{ env.MLKIT_OS }}.tgz
-        mkdir -p $HOME/.local/bin
+        mkdir -p "$HOME/.local/bin"
         make -C mlkit-bin-dist-${{ env.MLKIT_OS }} install PREFIX=$HOME/.local
         echo "SML_LIB=$HOME/.local/lib/mlkit" >> "$GITHUB_ENV"
     - id: cleanup
