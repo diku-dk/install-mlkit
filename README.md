@@ -1,6 +1,6 @@
 # Install MLKit
 
-This action installs MLKit in a Linux-based GitHub Actions runner.
+This action installs MLKit in a GitHub Actions runner (Linux or macOS).
 The compiler is installed in `$HOME/.local`, which means it will be on
 the `$PATH` of a standard setup.
 

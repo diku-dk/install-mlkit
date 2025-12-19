@@ -8,20 +8,32 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - id: setup-os
+      shell: bash
+      run: |
+        OS_NAME=$(echo "${{ runner.os }}" | tr '[:upper:]' '[:lower:]')
+        if [ "$OS_NAME" = "macos" ]; then
+          OS_NAME="darwin"
+        elif [ "$OS_NAME" != "linux" ]; then
+          echo "Error: Unsupported operating system '${{ runner.os }}'. Only Linux and macOS are supported."
+          exit 1
+        fi
+        echo "MLKIT_OS=$OS_NAME" >> "$GITHUB_ENV"
     - id: fetch
       uses: dsaltares/fetch-gh-release-asset@1.1.0
       with:
         repo: 'melsman/mlkit'
         version: ${{ ((inputs.version == 'latest') && 'latest') || format('tags/v{0}', inputs.version) }}
         regex: true
-        file: "mlkit-bin-dist-linux.tgz"
+        file: "mlkit-bin-dist-${{ env.MLKIT_OS }}.tgz"
         target: 'mlkit-install-dir/'
     - id: install
       shell: bash
       working-directory: 'mlkit-install-dir/'
       run: |
-        tar xvf mlkit-bin-dist-linux.tgz
-        make -C mlkit-bin-dist-linux install PREFIX=$HOME/.local
+        tar xvf mlkit-bin-dist-${{ env.MLKIT_OS }}.tgz
+        mkdir -p "$HOME/.local/bin"
+        make -C mlkit-bin-dist-${{ env.MLKIT_OS }} install PREFIX=$HOME/.local
         echo "SML_LIB=$HOME/.local/lib/mlkit" >> "$GITHUB_ENV"
     - id: cleanup
       shell: bash

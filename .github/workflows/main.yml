@@ -2,8 +2,13 @@ on: [push]
 
 jobs:
   test_job:
-    runs-on: ubuntu-latest
-    name: Test installation.
+    runs-on: ${{ matrix.os }}
+    name: Test installation on ${{ matrix.os }}
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
     steps:
       - uses: actions/checkout@v3
 
