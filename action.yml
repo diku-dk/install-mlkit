@@ -25,6 +25,8 @@ runs:
         if [ "$MLKIT_OS" = "darwin" ]; then
           echo "Installing GMP library on macOS..."
           brew install gmp
+          echo "Checking GMP library installation..."
+          ls -l /usr/local/lib/libgmp* || echo "No GMP libraries found in /usr/local/lib"
           # Create symlink for GMP if needed (for Apple Silicon Macs where Homebrew uses /opt/homebrew)
           BREW_PREFIX="$(brew --prefix)"
           if [ ! -L /usr/local/opt/gmp ] && [ ! -e /usr/local/opt/gmp ] && [ -e "$BREW_PREFIX/opt/gmp" ]; then
