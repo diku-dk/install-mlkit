@@ -22,12 +22,12 @@ runs:
     - id: install-dependencies
       shell: bash
       run: |
-        if [ "${{ runner.os }}" = "macOS" ]; then
+        if [ "$MLKIT_OS" = "darwin" ]; then
           echo "Installing GMP library on macOS..."
           brew install gmp
           # Create symlink for GMP if needed (for Apple Silicon Macs where Homebrew uses /opt/homebrew)
           BREW_PREFIX="$(brew --prefix)"
-          if [ ! -e /usr/local/opt/gmp ] && [ -e "$BREW_PREFIX/opt/gmp" ]; then
+          if [ ! -L /usr/local/opt/gmp ] && [ ! -e /usr/local/opt/gmp ] && [ -e "$BREW_PREFIX/opt/gmp" ]; then
             echo "Creating symlink from $BREW_PREFIX/opt/gmp to /usr/local/opt/gmp"
             sudo mkdir -p /usr/local/opt
             sudo ln -s "$BREW_PREFIX/opt/gmp" /usr/local/opt/gmp
