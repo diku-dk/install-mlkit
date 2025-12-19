@@ -25,6 +25,12 @@ runs:
         if [ "${{ runner.os }}" = "macOS" ]; then
           echo "Installing GMP library on macOS..."
           brew install gmp
+          # Create symlink for GMP if needed (for Apple Silicon Macs where Homebrew uses /opt/homebrew)
+          if [ ! -e /usr/local/opt/gmp ] && [ -e "$(brew --prefix)/opt/gmp" ]; then
+            echo "Creating symlink from $(brew --prefix)/opt/gmp to /usr/local/opt/gmp"
+            sudo mkdir -p /usr/local/opt
+            sudo ln -s "$(brew --prefix)/opt/gmp" /usr/local/opt/gmp
+          fi
         fi
     - id: fetch
       uses: dsaltares/fetch-gh-release-asset@1.1.0
